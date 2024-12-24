@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BerController : MonoBehaviour
 {
-   // private float movableRange = 2f;
-   // private float velocityX = 10f;
-    // Start is called before the first frame update
     void Start()
     {
     }
@@ -15,17 +13,13 @@ public class BerController : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal") ;
-        transform.position += new Vector3(x, 0, 0)*Time.deltaTime *12 ;
+        float speed = 12f;
+        float minX = -1.9f;
+        float maxX = 1.9f;
+
+        transform.position += new Vector3(x , 0, 0)*Time.deltaTime *speed ;
+
+        float clampedX = Mathf.Clamp(transform.position.x, minX, maxX);
+        transform.position = new Vector3(clampedX, transform.position.y, transform.position.z);
     }
-
-    /*float inputvelocityX = 0;
-
-        if( Input.GetKey(KeyCode.LeftArrow) && -this.movableRange < this.transform.position.x)
-        {
-            inputvelocityX = -this.velocityX;
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) && this.transform.position.x < this.movableRange )
-        {
-            inputvelocityX = this.velocityX;
-        }*/
 }
